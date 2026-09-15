@@ -1,103 +1,208 @@
 {
     "dataRoles": [
-        {
-            "displayName": "门店",
-            "name": "category",
-            "kind": "Grouping"
-        },
-        {
-            "displayName": "销售额",
-            "name": "measure",
-            "kind": "Measure"
-        },
+        { "displayName": "门店", "displayNameKey": "Role_Category", "name": "category", "kind": "Grouping" },
+        { "displayName": "销售额", "displayNameKey": "Role_Measure", "name": "measure", "kind": "Measure" },
         {
             "displayName": "工具提示",
+            "displayNameKey": "Role_Tooltips",
             "description": "可添加多个辅助字段或度量",
+            "descriptionKey": "Role_Tooltips_Description",
             "name": "tooltips",
             "kind": "GroupingOrMeasure"
         }
     ],
     "objects": {
         "line": {
-            "displayName": "曲线",
+            "displayName": "帕累托曲线",
+            "displayNameKey": "Card_ParetoLine",
             "properties": {
-                "color": {
-                    "displayName": "颜色",
-                    "type": { "fill": { "solid": { "color": true } } }
-                },
-                "width": {
-                    "displayName": "线宽",
-                    "type": { "numeric": true }
-                }
+                "color": { "displayName": "颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "width": { "displayName": "线宽", "type": { "numeric": true } }
             }
         },
         "axes": {
-            "displayName": "坐标轴",
+            "displayName": "旧版坐标轴",
+            "displayNameKey": "Card_LegacyAxes",
             "properties": {
-                "showGridlines": {
-                    "displayName": "显示网格线",
-                    "type": { "bool": true }
+                "showGridlines": { "displayName": "显示网格线", "type": { "bool": true } },
+                "fontSize": { "displayName": "字号", "type": { "formatting": { "fontSize": true } } }
+            }
+        },
+        "xAxis": {
+            "displayName": "X 轴",
+            "displayNameKey": "Card_XAxis",
+            "properties": {
+                "show": { "displayName": "显示", "type": { "bool": true } },
+                "maxTickCount": { "displayName": "最大刻度数", "type": { "integer": true } },
+                "labelColor": { "displayName": "标签颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "labelFontFamily": { "displayName": "标签字体", "type": { "formatting": { "fontFamily": true } } },
+                "labelFontSize": { "displayName": "标签字号", "type": { "formatting": { "fontSize": true } } },
+                "labelBold": { "displayName": "粗体", "type": { "bool": true } },
+                "labelItalic": { "displayName": "斜体", "type": { "bool": true } },
+                "showTitle": { "displayName": "显示标题", "type": { "bool": true } },
+                "titleText": { "displayName": "标题文本", "type": { "text": true } },
+                "titleColor": { "displayName": "标题颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "titleFontFamily": { "displayName": "标题字体", "type": { "formatting": { "fontFamily": true } } },
+                "titleFontSize": { "displayName": "标题字号", "type": { "formatting": { "fontSize": true } } },
+                "titleBold": { "displayName": "标题粗体", "type": { "bool": true } },
+                "titleItalic": { "displayName": "标题斜体", "type": { "bool": true } }
+            }
+        },
+        "valueAxis": {
+            "displayName": "副 Y 轴",
+            "displayNameKey": "Card_ValueAxis",
+            "properties": {
+                "show": { "displayName": "显示", "type": { "bool": true } },
+                "position": {
+                    "displayName": "位置",
+                    "type": { "enumeration": [
+                        { "displayName": "左侧", "displayNameKey": "Enum_Left", "value": "left" },
+                        { "displayName": "右侧", "displayNameKey": "Enum_Right", "value": "right" }
+                    ] }
                 },
-                "fontSize": {
-                    "displayName": "字号",
-                    "type": { "formatting": { "fontSize": true } }
-                }
+                "displayUnits": { "displayName": "显示单位", "type": { "formatting": { "labelDisplayUnits": true } } },
+                "decimalPlaces": { "displayName": "小数位数", "type": { "integer": true } },
+                "rangeMode": {
+                    "displayName": "范围",
+                    "type": { "enumeration": [
+                        { "displayName": "自动", "displayNameKey": "Enum_Auto", "value": "auto" },
+                        { "displayName": "自定义", "displayNameKey": "Enum_Custom", "value": "custom" }
+                    ] }
+                },
+                "start": { "displayName": "最小值", "type": { "numeric": true } },
+                "end": { "displayName": "最大值", "type": { "numeric": true } },
+                "maxTickCount": { "displayName": "最大刻度数", "type": { "integer": true } },
+                "labelColor": { "displayName": "标签颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "labelFontFamily": { "displayName": "标签字体", "type": { "formatting": { "fontFamily": true } } },
+                "labelFontSize": { "displayName": "标签字号", "type": { "formatting": { "fontSize": true } } },
+                "labelBold": { "displayName": "粗体", "type": { "bool": true } },
+                "labelItalic": { "displayName": "斜体", "type": { "bool": true } },
+                "showTitle": { "displayName": "显示标题", "type": { "bool": true } },
+                "titleText": { "displayName": "标题文本", "type": { "text": true } },
+                "titleColor": { "displayName": "标题颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "titleFontFamily": { "displayName": "标题字体", "type": { "formatting": { "fontFamily": true } } },
+                "titleFontSize": { "displayName": "标题字号", "type": { "formatting": { "fontSize": true } } },
+                "titleBold": { "displayName": "标题粗体", "type": { "bool": true } },
+                "titleItalic": { "displayName": "标题斜体", "type": { "bool": true } }
+            }
+        },
+        "percentageAxis": {
+            "displayName": "累计占比轴",
+            "displayNameKey": "Card_PercentageAxis",
+            "properties": {
+                "show": { "displayName": "显示", "type": { "bool": true } },
+                "position": {
+                    "displayName": "位置",
+                    "type": { "enumeration": [
+                        { "displayName": "左侧", "displayNameKey": "Enum_Left", "value": "left" },
+                        { "displayName": "右侧", "displayNameKey": "Enum_Right", "value": "right" }
+                    ] }
+                },
+                "decimalPlaces": { "displayName": "小数位数", "type": { "integer": true } },
+                "maxTickCount": { "displayName": "最大刻度数", "type": { "integer": true } },
+                "showGridlines": { "displayName": "显示网格线", "type": { "bool": true } },
+                "gridlineColor": { "displayName": "网格线颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "labelColor": { "displayName": "标签颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "labelFontFamily": { "displayName": "标签字体", "type": { "formatting": { "fontFamily": true } } },
+                "labelFontSize": { "displayName": "标签字号", "type": { "formatting": { "fontSize": true } } },
+                "labelBold": { "displayName": "粗体", "type": { "bool": true } },
+                "labelItalic": { "displayName": "斜体", "type": { "bool": true } },
+                "showTitle": { "displayName": "显示标题", "type": { "bool": true } },
+                "titleText": { "displayName": "标题文本", "type": { "text": true } },
+                "titleColor": { "displayName": "标题颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "titleFontFamily": { "displayName": "标题字体", "type": { "formatting": { "fontFamily": true } } },
+                "titleFontSize": { "displayName": "标题字号", "type": { "formatting": { "fontSize": true } } },
+                "titleBold": { "displayName": "标题粗体", "type": { "bool": true } },
+                "titleItalic": { "displayName": "标题斜体", "type": { "bool": true } }
             }
         },
         "dataLabels": {
-            "displayName": "数据标签",
+            "displayName": "累计占比标签",
+            "displayNameKey": "Card_DataLabels",
             "properties": {
-                "show": {
-                    "displayName": "显示",
-                    "type": { "bool": true }
-                },
-                "count": {
-                    "displayName": "标签数量",
-                    "type": { "numeric": true }
-                },
-                "fontSize": {
-                    "displayName": "字号",
-                    "type": { "formatting": { "fontSize": true } }
-                }
+                "show": { "displayName": "显示", "type": { "bool": true } },
+                "showCurrentShare": { "displayName": "显示当前值占比", "type": { "bool": true } },
+                "count": { "displayName": "标签数量", "type": { "integer": true } },
+                "color": { "displayName": "颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "fontFamily": { "displayName": "字体", "type": { "formatting": { "fontFamily": true } } },
+                "fontSize": { "displayName": "字号", "type": { "formatting": { "fontSize": true } } },
+                "bold": { "displayName": "粗体", "type": { "bool": true } },
+                "italic": { "displayName": "斜体", "type": { "bool": true } }
+            }
+        },
+        "salesBars": {
+            "displayName": "销售额柱子",
+            "displayNameKey": "Card_SalesBars",
+            "properties": {
+                "show": { "displayName": "显示", "type": { "bool": true } },
+                "color": { "displayName": "颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "transparency": { "displayName": "透明度", "type": { "numeric": true } },
+                "innerPadding": { "displayName": "内部间距", "type": { "numeric": true } }
+            }
+        },
+        "salesLabels": {
+            "displayName": "销售额标签",
+            "displayNameKey": "Card_SalesLabels",
+            "properties": {
+                "show": { "displayName": "显示", "type": { "bool": true } },
+                "color": { "displayName": "颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "count": { "displayName": "标签数量", "type": { "integer": true } },
+                "displayUnits": { "displayName": "显示单位", "type": { "formatting": { "labelDisplayUnits": true } } },
+                "decimalPlaces": { "displayName": "小数位数", "type": { "integer": true } },
+                "fontFamily": { "displayName": "字体", "type": { "formatting": { "fontFamily": true } } },
+                "fontSize": { "displayName": "字号", "type": { "formatting": { "fontSize": true } } },
+                "bold": { "displayName": "粗体", "type": { "bool": true } },
+                "italic": { "displayName": "斜体", "type": { "bool": true } }
             }
         },
         "referenceLine": {
             "displayName": "占比参考线",
+            "displayNameKey": "Card_ReferenceLine",
             "properties": {
-                "show": {
-                    "displayName": "显示",
-                    "type": { "bool": true }
-                },
-                "value": {
-                    "displayName": "累计占比",
-                    "type": { "numeric": true }
-                },
-                "color": {
-                    "displayName": "颜色",
-                    "type": { "fill": { "solid": { "color": true } } }
-                }
+                "show": { "displayName": "显示", "type": { "bool": true } },
+                "value": { "displayName": "累计占比", "type": { "numeric": true } },
+                "color": { "displayName": "颜色", "type": { "fill": { "solid": { "color": true } } } }
             }
         },
         "countReferenceLine": {
             "displayName": "数量参考线",
+            "displayNameKey": "Card_CountReferenceLine",
             "properties": {
-                "show": {
-                    "displayName": "显示",
-                    "type": { "bool": true }
-                },
-                "value": {
-                    "displayName": "门店数量",
-                    "type": { "numeric": true }
-                },
-                "color": {
-                    "displayName": "颜色",
-                    "type": { "fill": { "solid": { "color": true } } }
-                }
+                "show": { "displayName": "显示", "type": { "bool": true } },
+                "value": { "displayName": "门店数量", "type": { "numeric": true } },
+                "color": { "displayName": "颜色", "type": { "fill": { "solid": { "color": true } } } }
             }
         }
     },
     "dataViewMappings": [
         {
+            "conditions": [
+                {
+                    "category": { "max": 1 },
+                    "measure": { "max": 1 },
+                    "tooltips": { "max": 0 }
+                }
+            ],
+            "categorical": {
+                "categories": {
+                    "for": { "in": "category" },
+                    "dataReductionAlgorithm": { "window": { "count": 30000 } }
+                },
+                "values": {
+                    "select": [
+                        { "for": { "in": "measure" } }
+                    ]
+                }
+            }
+        },
+        {
+            "conditions": [
+                {
+                    "category": { "max": 1 },
+                    "measure": { "max": 1 },
+                    "tooltips": { "min": 1 }
+                }
+            ],
             "table": {
                 "rows": {
                     "select": [
@@ -105,9 +210,7 @@
                         { "for": { "in": "measure" } },
                         { "for": { "in": "tooltips" } }
                     ],
-                    "dataReductionAlgorithm": {
-                        "window": { "count": 30000 }
-                    }
+                    "dataReductionAlgorithm": { "window": { "count": 30000 } }
                 }
             }
         }
@@ -117,7 +220,10 @@
         "roles": ["tooltips"],
         "supportEnhancedTooltips": true
     },
-    "supportsHighlight": false,
+    "supportsHighlight": true,
+    "supportsKeyboardFocus": true,
+    "supportsMultiVisualSelection": true,
+    "supportsLandingPage": true,
     "supportsEmptyDataView": true,
     "privileges": []
 }

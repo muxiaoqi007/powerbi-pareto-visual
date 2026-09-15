@@ -18,8 +18,16 @@
         stroke-linejoin: round;
     }
 
+    .highlight-line {
+        fill: none;
+        stroke-dasharray: 5 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        pointer-events: none;
+    }
+
     .grid-lines line {
-        stroke: #E6E9ED;
+        stroke: currentColor;
         stroke-width: 1;
     }
 
@@ -28,15 +36,44 @@
     }
 
     .x-axis,
-    .y-axis {
+    .y-axis,
+    .sales-axis {
         color: #6B6B6B;
     }
 
     .x-axis path,
     .y-axis path,
+    .sales-axis path,
     .x-axis line,
-    .y-axis line {
-        stroke: #C8CDD2;
+    .y-axis line,
+    .sales-axis line {
+        stroke: currentColor;
+    }
+
+    .sales-bars {
+        pointer-events: none;
+    }
+
+    .highlight-bars {
+        pointer-events: none;
+    }
+
+    .sales-bar {
+        shape-rendering: crispEdges;
+    }
+
+    .axis-title {
+        font-size: 9pt;
+        font-weight: 600;
+        pointer-events: none;
+    }
+
+    .current-share-label {
+        opacity: 0.82;
+    }
+
+    .sales-value-labels {
+        pointer-events: none;
     }
 
     .data-labels {
@@ -84,6 +121,14 @@
         fill: transparent;
         cursor: crosshair;
         touch-action: none;
+        outline: none;
+        stroke: transparent;
+        stroke-width: 2;
+    }
+
+    .hover-overlay:focus-visible {
+        stroke: currentColor;
+        stroke-dasharray: 4 3;
     }
 
     .pareto-empty {
