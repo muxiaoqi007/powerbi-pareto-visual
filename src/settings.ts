@@ -197,6 +197,8 @@ class XAxisCardSettings extends FormattingSettingsCompositeCard {
     public topLevelSlice = this.show;
     public optionGroup = new FormattingSettingsGroup({
         name: "xAxisOptions",
+        displayName: "选项",
+        slices: [this.labelMode, this.maxTickCount]
     });
     public labelGroup = new FormattingSettingsGroup({
         name: "xAxisLabels",
