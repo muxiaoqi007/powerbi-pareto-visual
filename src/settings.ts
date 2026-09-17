@@ -53,7 +53,7 @@ const formattingDisplayNameKeys: Record<string, string> = {
     "透明度": "Format_Transparency",
     "内部间距": "Format_InnerPadding",
     "累计占比": "Format_CumulativeShare",
-    "门店数量": "Format_CategoryCount"
+    "分类数量": "Format_CategoryCount"
 };
 
 function assignLocalizationKeys(entity: LocalizableFormattingEntity): void {
@@ -650,7 +650,7 @@ class CountReferenceLineCardSettings extends FormattingSettingsCard {
 
     public value = new formattingSettings.NumUpDown({
         name: "value",
-        displayName: "门店数量",
+        displayName: "分类数量",
         value: 1000,
         options: numberOptions(1, 30000)
     });

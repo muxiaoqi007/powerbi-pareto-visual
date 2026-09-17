@@ -1,7 +1,7 @@
 {
     "dataRoles": [
-        { "displayName": "门店", "displayNameKey": "Role_Category", "name": "category", "kind": "Grouping" },
-        { "displayName": "销售额", "displayNameKey": "Role_Measure", "name": "measure", "kind": "Measure" },
+        { "displayName": "分类", "displayNameKey": "Role_Category", "name": "category", "kind": "Grouping" },
+        { "displayName": "值", "displayNameKey": "Role_Measure", "name": "measure", "kind": "Measure" },
         {
             "displayName": "工具提示",
             "displayNameKey": "Role_Tooltips",
@@ -169,7 +169,7 @@
             "displayNameKey": "Card_CountReferenceLine",
             "properties": {
                 "show": { "displayName": "显示", "type": { "bool": true } },
-                "value": { "displayName": "门店数量", "type": { "numeric": true } },
+                "value": { "displayName": "分类数量", "type": { "numeric": true } },
                 "color": { "displayName": "颜色", "type": { "fill": { "solid": { "color": true } } } }
             }
         }

@@ -1,6 +1,6 @@
 {
-    "Role_Category": "门店",
-    "Role_Measure": "销售额",
+    "Role_Category": "分类",
+    "Role_Measure": "值",
     "Role_Tooltips": "工具提示",
     "Role_Tooltips_Description": "可添加多个辅助字段或度量",
     "Card_ParetoLine": "帕累托曲线",
@@ -42,7 +42,7 @@
     "Format_Transparency": "透明度",
     "Format_InnerPadding": "内部间距",
     "Format_CumulativeShare": "累计占比",
-    "Format_CategoryCount": "门店数量",
+    "Format_CategoryCount": "分类数量",
     "Text_Blank": "(空白)",
     "Text_Ranking": "排名",
     "Text_SecondaryYAxis": "副 Y 轴",

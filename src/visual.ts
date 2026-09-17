@@ -61,8 +61,8 @@ export class Visual implements IVisual {
     private cachedPoints: ParetoPoint[] = [];
     private tooltipCache = new Map<number, VisualTooltipDataItem[]>();
     private selectedKeys = new Set<string>();
-    private categoryDisplayName = "门店";
-    private measureDisplayName = "销售额";
+    private categoryDisplayName: string;
+    private measureDisplayName: string;
     private dataWarning: string | undefined;
     private readonly clipPathId: string;
 
@@ -226,8 +226,8 @@ export class Visual implements IVisual {
             return [];
         }
 
-        this.categoryDisplayName = category.source.displayName || "门店";
-        this.measureDisplayName = values.source.displayName || "销售额";
+        this.categoryDisplayName = category.source.displayName || this.t("Role_Category");
+        this.measureDisplayName = values.source.displayName || this.t("Role_Measure");
 
         const tooltipColumns = categoricalValues
             ? Array.from(categoricalValues).filter(column => column.source.roles?.tooltips)
@@ -302,8 +302,8 @@ export class Visual implements IVisual {
         }
 
         const measureFormat = table.columns[measureIndex].format;
-        this.categoryDisplayName = table.columns[categoryIndex].displayName || "门店";
-        this.measureDisplayName = table.columns[measureIndex].displayName || "销售额";
+        this.categoryDisplayName = table.columns[categoryIndex].displayName || this.t("Role_Category");
+        this.measureDisplayName = table.columns[measureIndex].displayName || this.t("Role_Measure");
         const tooltipIndexes = table.columns
             .map((column, index) => column.roles?.tooltips ? index : -1)
             .filter(index => index >= 0);
