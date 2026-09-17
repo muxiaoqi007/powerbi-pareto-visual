@@ -599,10 +599,26 @@ export class Visual implements IVisual {
         const rankTicks = this.selectRankTicks(points.length, xTickLimit);
         if (xAxisSettings.show.value) {
             const xAxis = d3.axisBottom(xScale).tickValues(rankTicks);
+            const labelMode = xAxisSettings.labelMode.value?.value ?? "rank";
+            const tickGap = Math.max(1, xScale(2) - xScale(1));
+            const maxLabelChars = Math.max(4, Math.floor(tickGap / 7));
+            const tickFormat = labelMode === "name"
+                ? (value: d3.NumberValue) => {
+                    const rank = Math.round(Number(value));
+                    const point = points[rank - 1];
+                    if (!point) {
+                        return "";
+                    }
+                    const name = String(point.name ?? "");
+                    return name.length > maxLabelChars
+                        ? name.slice(0, maxLabelChars - 1) + "…"
+                        : name;
+                }
+                : (value: d3.NumberValue) => Math.round(Number(value)).toLocaleString();
             const xAxisGroup = chart.append("g")
                 .attr("class", "x-axis")
                 .attr("transform", `translate(0,${innerHeight})`)
-                .call(xAxis.tickFormat(value => Math.round(Number(value)).toLocaleString()));
+                .call(xAxis.tickFormat(tickFormat));
             this.styleAxis(xAxisGroup, this.visualColor(xAxisSettings.labelColor.value.value), xAxisSettings.labelFont);
             if (xAxisSettings.showTitle.value) {
                 chart.append("text")
@@ -1107,7 +1123,10 @@ export class Visual implements IVisual {
     private applyLocalizedTitleDefaults(dataView: powerbi.DataView): void {
         const objects = dataView.metadata.objects;
         if (objects?.xAxis?.titleText === undefined) {
-            this.formattingSettings.xAxisCard.titleText.value = this.t("Text_Ranking");
+            const labelMode = this.formattingSettings.xAxisCard.labelMode.value?.value ?? "rank";
+            this.formattingSettings.xAxisCard.titleText.value = this.t(
+                labelMode === "name" ? "Text_Category" : "Text_Ranking"
+            );
         }
         if (objects?.valueAxis?.titleText === undefined) {
             this.formattingSettings.valueAxisCard.titleText.value = this.t("Text_SecondaryYAxis");

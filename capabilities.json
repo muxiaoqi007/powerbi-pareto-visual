@@ -33,6 +33,13 @@
             "displayNameKey": "Card_XAxis",
             "properties": {
                 "show": { "displayName": "显示", "type": { "bool": true } },
+                "labelMode": {
+                    "displayName": "标签类型",
+                    "type": { "enumeration": [
+                        { "displayName": "排名", "displayNameKey": "Enum_LabelMode_Rank", "value": "rank" },
+                        { "displayName": "分类名称", "displayNameKey": "Enum_LabelMode_Name", "value": "name" }
+                    ] }
+                },
                 "maxTickCount": { "displayName": "最大刻度数", "type": { "integer": true } },
                 "labelColor": { "displayName": "标签颜色", "type": { "fill": { "solid": { "color": true } } } },
                 "labelFontFamily": { "displayName": "标签字体", "type": { "formatting": { "fontFamily": true } } },

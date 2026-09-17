@@ -46,6 +46,7 @@ const formattingDisplayNameKeys: Record<string, string> = {
     "最小值": "Format_Minimum",
     "最大值": "Format_Maximum",
     "选项": "Format_Options",
+    "标签类型": "Format_LabelType",
     "显示网格线": "Format_ShowGridlines",
     "网格线颜色": "Format_GridlineColor",
     "显示当前值占比": "Format_ShowCurrentShare",
@@ -129,6 +130,16 @@ class XAxisCardSettings extends FormattingSettingsCompositeCard {
         name: "show",
         displayName: "显示",
         value: true
+    });
+
+    public labelMode = new formattingSettings.ItemDropdown({
+        name: "labelMode",
+        displayName: "标签类型",
+        items: [
+            { displayName: "排名", value: "rank" },
+            { displayName: "分类名称", value: "name" }
+        ],
+        value: { displayName: "排名", value: "rank" }
     });
 
     public maxTickCount = new formattingSettings.NumUpDown({
