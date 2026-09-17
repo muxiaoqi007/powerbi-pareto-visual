@@ -53,6 +53,12 @@ const formattingDisplayNameKeys: Record<string, string> = {
     "标签数量": "Format_LabelCount",
     "透明度": "Format_Transparency",
     "内部间距": "Format_InnerPadding",
+    "着色模式": "Format_ColorMode",
+    "A 类累计上限 (%)": "Format_ClassAThreshold",
+    "B 类累计上限 (%)": "Format_ClassBThreshold",
+    "A 类颜色": "Format_ColorA",
+    "B 类颜色": "Format_ColorB",
+    "C 类颜色": "Format_ColorC",
     "累计占比": "Format_CumulativeShare",
     "分类数量": "Format_CategoryCount"
 };
@@ -531,6 +537,48 @@ class SalesBarsCardSettings extends FormattingSettingsCard {
         value: { value: "#7B61FF" }
     });
 
+    public colorMode = new formattingSettings.ItemDropdown({
+        name: "colorMode",
+        displayName: "着色模式",
+        items: [
+            { displayName: "单一颜色", value: "single" },
+            { displayName: "按累计占比 (ABC)", value: "abc" }
+        ],
+        value: { displayName: "单一颜色", value: "single" }
+    });
+
+    public classAThreshold = new formattingSettings.NumUpDown({
+        name: "classAThreshold",
+        displayName: "A 类累计上限 (%)",
+        value: 80,
+        options: numberOptions(1, 99)
+    });
+
+    public classBThreshold = new formattingSettings.NumUpDown({
+        name: "classBThreshold",
+        displayName: "B 类累计上限 (%)",
+        value: 95,
+        options: numberOptions(1, 100)
+    });
+
+    public colorA = new formattingSettings.ColorPicker({
+        name: "colorA",
+        displayName: "A 类颜色",
+        value: { value: "#D64550" }
+    });
+
+    public colorB = new formattingSettings.ColorPicker({
+        name: "colorB",
+        displayName: "B 类颜色",
+        value: { value: "#E8A33D" }
+    });
+
+    public colorC = new formattingSettings.ColorPicker({
+        name: "colorC",
+        displayName: "C 类颜色",
+        value: { value: "#8A9BA8" }
+    });
+
     public transparency = new formattingSettings.NumUpDown({
         name: "transparency",
         displayName: "透明度",
@@ -548,10 +596,26 @@ class SalesBarsCardSettings extends FormattingSettingsCard {
     public name = "salesBars";
     public displayName = "销售额柱子";
     public topLevelSlice = this.show;
-    public slices: FormattingSettingsSlice[] = [this.color, this.transparency, this.innerPadding];
+    public slices: FormattingSettingsSlice[] = [
+        this.color,
+        this.colorMode,
+        this.classAThreshold,
+        this.classBThreshold,
+        this.colorA,
+        this.colorB,
+        this.colorC,
+        this.transparency,
+        this.innerPadding
+    ];
 
     public onPreProcess(): void {
         this.slices.forEach(slice => slice.visible = this.show.value);
+        const abcMode = this.colorMode.value?.value === "abc";
+        this.classAThreshold.visible = this.show.value && abcMode;
+        this.classBThreshold.visible = this.show.value && abcMode;
+        this.colorA.visible = this.show.value && abcMode;
+        this.colorB.visible = this.show.value && abcMode;
+        this.colorC.visible = this.show.value && abcMode;
     }
 }
 

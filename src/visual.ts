@@ -473,6 +473,23 @@ export class Visual implements IVisual {
         if (showBars) {
             const barPoints = this.sampleBarsForRendering(points, xScale, innerWidth);
             const barWidth = this.getBarWidth(points, xScale, innerWidth);
+            const barsSettings = this.formattingSettings.salesBarsCard;
+            const abcColorMode = barsSettings.colorMode.value?.value === "abc";
+            const classAThreshold = this.clamp(barsSettings.classAThreshold.value, 1, 99) / 100;
+            const classBThreshold = Math.max(
+                classAThreshold + 0.01,
+                this.clamp(barsSettings.classBThreshold.value, 1, 100) / 100
+            );
+            const abcColorFor = (point: ParetoPoint): string => {
+                const share = point.cumulativeShare;
+                if (share <= classAThreshold) {
+                    return barsSettings.colorA.value.value;
+                }
+                if (share <= classBThreshold) {
+                    return barsSettings.colorB.value.value;
+                }
+                return barsSettings.colorC.value.value;
+            };
             chart.append("g")
                 .attr("class", "sales-bars")
                 .attr("clip-path", plotClip)
@@ -486,7 +503,9 @@ export class Visual implements IVisual {
                 .attr("height", point => Math.max(0, innerHeight - valueScale(point.value)))
                 .attr("fill", this.isHighContrast
                     ? this.backgroundColor
-                    : this.formattingSettings.salesBarsCard.color.value.value)
+                    : abcColorMode
+                        ? (point: ParetoPoint) => abcColorFor(point)
+                        : barsSettings.color.value.value)
                 .attr("stroke", this.isHighContrast ? this.foregroundColor : "none")
                 .attr("stroke-width", this.isHighContrast ? 2 : 0)
                 .attr("fill-opacity", 1 - this.clamp(
@@ -1008,6 +1027,18 @@ export class Visual implements IVisual {
         if (cached) {
             return cached;
         }
+        const barsSettings = this.formattingSettings.salesBarsCard;
+        const abcMode = barsSettings.colorMode.value?.value === "abc";
+        const classAThreshold = this.clamp(barsSettings.classAThreshold.value, 1, 99) / 100;
+        const classBThreshold = Math.max(
+            classAThreshold + 0.01,
+                this.clamp(barsSettings.classBThreshold.value, 1, 100) / 100
+        );
+        const abcClass = abcMode
+            ? (point.cumulativeShare <= classAThreshold
+                ? "A"
+                : point.cumulativeShare <= classBThreshold ? "B" : "C")
+            : undefined;
         const items: VisualTooltipDataItem[] = [
             { displayName: this.categoryDisplayName, value: point.name, header: point.name },
             { displayName: this.measureDisplayName, value: valueFormatter.format(
@@ -1019,6 +1050,7 @@ export class Visual implements IVisual {
             { displayName: this.t("Tooltip_Rank"), value: point.rank.toLocaleString(this.host.locale) },
             { displayName: this.t("Tooltip_CurrentShare"), value: this.formatPercentage(point.currentShare, 2) },
             { displayName: this.t("Tooltip_CumulativeShare"), value: this.formatPercentage(point.cumulativeShare, 2) },
+            ...(abcClass ? [{ displayName: this.t("Tooltip_AbcClass"), value: abcClass }] : []),
             ...point.extraTooltipItems
         ];
         if (point.highlightValue !== undefined) {

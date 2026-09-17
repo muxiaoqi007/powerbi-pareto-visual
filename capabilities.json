@@ -143,6 +143,18 @@
             "properties": {
                 "show": { "displayName": "显示", "type": { "bool": true } },
                 "color": { "displayName": "颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "colorMode": {
+                    "displayName": "着色模式",
+                    "type": { "enumeration": [
+                        { "displayName": "单一颜色", "displayNameKey": "Enum_ColorMode_Single", "value": "single" },
+                        { "displayName": "按累计占比 (ABC)", "displayNameKey": "Enum_ColorMode_Abc", "value": "abc" }
+                    ] }
+                },
+                "classAThreshold": { "displayName": "A 类累计上限 (%)", "type": { "numeric": true } },
+                "classBThreshold": { "displayName": "B 类累计上限 (%)", "type": { "numeric": true } },
+                "colorA": { "displayName": "A 类颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "colorB": { "displayName": "B 类颜色", "type": { "fill": { "solid": { "color": true } } } },
+                "colorC": { "displayName": "C 类颜色", "type": { "fill": { "solid": { "color": true } } } },
                 "transparency": { "displayName": "透明度", "type": { "numeric": true } },
                 "innerPadding": { "displayName": "内部间距", "type": { "numeric": true } }
             }
